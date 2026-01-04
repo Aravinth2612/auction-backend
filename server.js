@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./db');
+const path = require('path');
 
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/products');
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 8000;
 connectDB(process.env.MONGO_URI || 'mongodb://localhost:27017/auction');
 
 const app = express();
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(cors());
 app.use(express.json({ limit: '5mb' }));
 
